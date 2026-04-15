@@ -1,19 +1,18 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local DataService = require(ReplicatedStorage.Packages.DataService)
+local ServerScriptService = game:GetService("ServerScriptService")
+
+local DataService = require(ReplicatedStorage.Packages.DataService).server
+local BaseServiceServer = require(ServerScriptService.Features.Base.BaseServiceServer)
+local InitializePartsServer = require(ServerScriptService.Game.Parts.InitializePartsServer)
 local DataTemplate = require(ReplicatedStorage.Source.Game.Items.DataTemplate)
 
-
--- Services
-local PlotServiceServer = require(ServerScriptService.Features.Plots.)
-
 DataService:init({
-
-    template = DataTemplate,
-    profileStoreIndex = "PRE",
-    useMock = false,
-    resetData = false,
-    dontSave = false,
+	template = DataTemplate,
+	profileStoreIndex = "PRE",
+	useMock = false,
+	resetData = false,
+	dontSave = false,
 })
 
-
-PlotServiceServer:init()
+InitializePartsServer()
+BaseServiceServer:init()
