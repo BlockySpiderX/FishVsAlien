@@ -1,20 +1,17 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local DataService = require(ReplicatedStorage.Packages.DataService).client
-local InventoryServiceClient = require(script.Parent.features.inventory.InventoryServiceClient)
-local MoneyHUD = require(script.Parent.features.money.MoneyHUD)
-local MoneyServiceClient = require(script.Parent.features.money.MoneyServiceClient)
-local ShopServiceClient = require(script.Parent.features.shop.ShopServiceClient)
+
+local features = script.Parent:WaitForChild("features")
+local friendBoost = features:WaitForChild("friendBoost")
+local money = features:WaitForChild("money")
+local shop = features:WaitForChild("shop")
+
+local FriendBoostHudController = require(friendBoost:WaitForChild("FriendBoostHudController"))
+local MoneyHudController = require(money:WaitForChild("MoneyHudController"))
+local EggShopController = require(shop:WaitForChild("EggShopController"))
 
 DataService:init()
-local inventoryService = InventoryServiceClient.new()
-local moneyService = MoneyServiceClient.new()
-local shopService = ShopServiceClient.new()
-local moneyHUD = MoneyHUD.new(moneyService, inventoryService, shopService)
-
-return {
-	inventoryService = inventoryService,
-	moneyService = moneyService,
-	moneyHUD = moneyHUD,
-	shopService = shopService,
-}
+FriendBoostHudController.start()
+MoneyHudController.start()
+EggShopController.start()
